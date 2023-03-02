@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
+import Country from '../types/Country'
 
 export const useStore = defineStore('main', {
     state: ()=>({
         countries:[],
-        countryInfo:{} as object
+        countryInfo:{} as Country
     }),
     actions:{
         fetchCountries(data:string){
@@ -39,7 +40,19 @@ export const useStore = defineStore('main', {
                 })
         },
         resetCountryInfo(){
-            this.countryInfo={}
+            this.countryInfo={
+                commonName: '',
+                officialName:'',
+                flag:'',
+                capital:'',
+                region:'',
+                subregion:'',
+                tld:'',
+                currencies:{},
+                population:'',
+                languages:{},
+                borders:[]
+            }
         }
     }
 })

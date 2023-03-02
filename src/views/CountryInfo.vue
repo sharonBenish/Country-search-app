@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onMounted, onBeforeUnmount, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '../store';
+import Country from '../types/Country';
 
 const route = useRoute();
 const router = useRouter();
@@ -18,11 +19,14 @@ onBeforeUnmount(()=>{
     store.resetCountryInfo()
 })
 
-const {countryInfo} = storeToRefs(store)
+const countryInfo = computed(()=>{
+    return store.countryInfo as Country
+});
+console.log(countryInfo)
 </script>
 <template>
     <div class="p-5 h-full min-h-[calc(100vh-64px)]">
-        <button class="shadow-lg px-5 py-3 rounded-md flex justify-between items-center" @click="goBack">
+        <button class="shadow-lg px-5 py-3 rounded-md flex justify-between items-center dark:bg-dark-blue" @click="goBack">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -54,8 +58,8 @@ const {countryInfo} = storeToRefs(store)
                 </p>
                 <div class="lg:flex items-center">
                     <h3 class="text-2xl font-bold my-4 lg:mr-4">Border Countries:</h3>
-                    <div class="flex flex-wrap">
-                        <p v-for="border, index in countryInfo.borders" :key="index" class="shadow-md rounded-sm p-3 w-min mr-5 lg:text-base">{{ border }}</p>
+                    <div class="flex flex-wrap gap-4">
+                        <p v-for="border, index in countryInfo.borders" :key="index" class="shadow-md rounded-sm p-3 w-min lg:text-base dark:bg-dark-blue">{{ border }}</p>
                     </div>
                 </div>
             </div>

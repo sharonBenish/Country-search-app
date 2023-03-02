@@ -42,7 +42,7 @@ import { onMounted } from 'vue';
 import CountryCard from '../components/CountryCard.vue';
 import {useStore} from '../store';
 import debounce from 'lodash.debounce';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const store = useStore();
 const query = ref('');
@@ -76,7 +76,7 @@ const selectRegion = (e:Event)=>{
     }
 }
 
-const goSom = (info:Object)=>{
+const goSom = (info:{name:{common:string}})=>{
     router.push({name:'CountryInfo', params:{country:info.name.common}})
 }
 
